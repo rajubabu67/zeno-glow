@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Instagram, Linkedin, Twitter, Send, MapPin } from "lucide-react";
+import { Mail, Instagram, Linkedin, Twitter, Send, MapPin, Loader2 } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const projectTypes = [
   "Motion Graphics",
@@ -23,6 +24,7 @@ const budgets = [
 
 const Contact = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -31,13 +33,32 @@ const Contact = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message sent!",
-      description: "We'll get back to you within 24 hours.",
-    });
-    setFormData({ name: "", email: "", projectType: "", budget: "", message: "" });
+    setIsSubmitting(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke("send-contact-email", {
+        body: formData,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Message sent!",
+        description: "We'll get back to you within 24 hours.",
+      });
+      setFormData({ name: "", email: "", projectType: "", budget: "", message: "" });
+    } catch (error: any) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Failed to send message",
+        description: "Please try again or email us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -66,7 +87,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Email us at</p>
-                    <p className="font-semibold">hello@zenocreatives.com</p>
+                    <p className="font-semibold">rajkiran.321756@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -75,7 +96,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Location</p>
-                    <p className="font-semibold">New York, USA (Remote-first)</p>
+                    <p className="font-semibold">Baneshwor, Kathmandu</p>
                   </div>
                 </div>
               </div>
@@ -83,13 +104,13 @@ const Contact = () => {
               <div>
                 <p className="text-sm text-muted-foreground mb-4">Follow us</p>
                 <div className="flex gap-4">
-                  <a href="#" className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center hover:bg-primary transition-colors">
+                  <a href="#" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center hover:bg-primary transition-colors">
                     <Instagram className="w-5 h-5" />
                   </a>
-                  <a href="#" className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center hover:bg-primary transition-colors">
+                  <a href="#" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center hover:bg-primary transition-colors">
                     <Linkedin className="w-5 h-5" />
                   </a>
-                  <a href="#" className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center hover:bg-primary transition-colors">
+                  <a href="#" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center hover:bg-primary transition-colors">
                     <Twitter className="w-5 h-5" />
                   </a>
                 </div>
@@ -109,7 +130,8 @@ const Contact = () => {
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="John Doe"
                       required
-                      className="w-full px-4 py-4 rounded-xl bg-secondary border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-4 rounded-xl bg-secondary border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50"
                     />
                   </div>
 
@@ -122,7 +144,8 @@ const Contact = () => {
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="john@company.com"
                       required
-                      className="w-full px-4 py-4 rounded-xl bg-secondary border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-4 rounded-xl bg-secondary border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50"
                     />
                   </div>
 
@@ -133,7 +156,8 @@ const Contact = () => {
                       value={formData.projectType}
                       onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
                       required
-                      className="w-full px-4 py-4 rounded-xl bg-secondary border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all appearance-none cursor-pointer"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-4 rounded-xl bg-secondary border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all appearance-none cursor-pointer disabled:opacity-50"
                     >
                       <option value="">Select a service</option>
                       {projectTypes.map((type) => (
@@ -149,7 +173,8 @@ const Contact = () => {
                       value={formData.budget}
                       onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
                       required
-                      className="w-full px-4 py-4 rounded-xl bg-secondary border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all appearance-none cursor-pointer"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-4 rounded-xl bg-secondary border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all appearance-none cursor-pointer disabled:opacity-50"
                     >
                       <option value="">Select your budget</option>
                       {budgets.map((budget) => (
@@ -167,17 +192,28 @@ const Contact = () => {
                       placeholder="Tell us about your project, goals, and timeline..."
                       rows={5}
                       required
-                      className="w-full px-4 py-4 rounded-xl bg-secondary border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all resize-none"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-4 rounded-xl bg-secondary border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all resize-none disabled:opacity-50"
                     />
                   </div>
 
                   {/* Submit */}
                   <button
                     type="submit"
-                    className="w-full btn-gradient py-5 rounded-xl font-semibold text-lg flex items-center justify-center gap-3"
+                    disabled={isSubmitting}
+                    className="w-full btn-gradient py-5 rounded-xl font-semibold text-lg flex items-center justify-center gap-3 disabled:opacity-70"
                   >
-                    Send Message
-                    <Send className="w-5 h-5" />
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <Send className="w-5 h-5" />
+                      </>
+                    )}
                   </button>
                 </div>
               </form>

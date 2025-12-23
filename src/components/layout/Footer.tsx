@@ -16,16 +16,16 @@ const Footer = () => {
               The creative agency for high-retention video content, motion graphics, and YouTube strategy.
             </p>
             <div className="flex gap-4 mt-6">
-              <a href="#" className="p-2 rounded-full bg-secondary hover:bg-primary transition-colors">
+              <a href="#" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-secondary hover:bg-primary transition-colors">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="p-2 rounded-full bg-secondary hover:bg-primary transition-colors">
+              <a href="#" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-secondary hover:bg-primary transition-colors">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="#" className="p-2 rounded-full bg-secondary hover:bg-primary transition-colors">
+              <a href="#" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-secondary hover:bg-primary transition-colors">
                 <Twitter className="w-5 h-5" />
               </a>
-              <a href="#" className="p-2 rounded-full bg-secondary hover:bg-primary transition-colors">
+              <a href="#" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-secondary hover:bg-primary transition-colors">
                 <Youtube className="w-5 h-5" />
               </a>
             </div>
@@ -46,15 +46,15 @@ const Footer = () => {
           <div>
             <h4 className="font-display font-semibold mb-4">Contact</h4>
             <ul className="space-y-3 text-muted-foreground">
-              <li>hello@zenocreatives.com</li>
-              <li>New York, USA</li>
+              <li>rajkiran.321756@gmail.com</li>
+              <li>Baneshwor, Kathmandu</li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2024 The Zeno Creatives. All rights reserved.
+            © 2025 The Zeno Creatives. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm text-muted-foreground">
             <a href="#" className="hover:text-foreground transition-colors">Privacy Policy</a>

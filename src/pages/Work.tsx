@@ -1,14 +1,27 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { Play, X } from "lucide-react";
 import Layout from "@/components/layout/Layout";
-import AnimatedSection from "@/components/ui/AnimatedSection";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const categories = ["All", "Motion", "YouTube", "Ads"];
 
-const projects = [
-  { id: 1, title: "Tech Brand Launch", category: "Motion", result: "+2M Views", image: "from-primary/30 to-orange-end/20" },
-  { id: 2, title: "SaaS Explainer", category: "Motion", result: "50% Conv. Rate", image: "from-purple-500/30 to-primary/20" },
+interface Project {
+  id: number;
+  title: string;
+  category: string;
+  result: string;
+  image: string;
+  videoUrl?: string;
+}
+
+const projects: Project[] = [
+  { id: 1, title: "Tech Brand Launch", category: "Motion", result: "+2M Views", image: "from-primary/30 to-orange-end/20", videoUrl: "https://www.youtube.com/embed/-W_4NsTCZJc" },
+  { id: 2, title: "SaaS Explainer", category: "Motion", result: "50% Conv. Rate", image: "from-purple-500/30 to-primary/20", videoUrl: "https://www.youtube.com/embed/GzAYQ3FDYj0" },
   { id: 3, title: "Channel Rebrand", category: "YouTube", result: "+500K Subs", image: "from-blue-500/30 to-primary/20" },
   { id: 4, title: "DTC Campaign", category: "Ads", result: "4.2x ROAS", image: "from-green-500/30 to-primary/20" },
   { id: 5, title: "Creator Content", category: "YouTube", result: "+10M Views", image: "from-pink-500/30 to-primary/20" },
@@ -19,10 +32,24 @@ const projects = [
 
 const Work = () => {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   const filteredProjects = activeCategory === "All"
     ? projects
     : projects.filter((p) => p.category === activeCategory);
+
+  const handleProjectClick = (project: Project) => {
+    if (project.videoUrl) {
+      setSelectedProject(project);
+      setIsVideoOpen(true);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsVideoOpen(false);
+    setSelectedProject(null);
+  };
 
   return (
     <Layout>
@@ -79,6 +106,7 @@ const Work = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
+                  onClick={() => handleProjectClick(project)}
                   className={`group relative overflow-hidden rounded-2xl cursor-pointer ${
                     index === 0 ? "md:col-span-2 md:row-span-2" : ""
                   }`}
@@ -89,16 +117,27 @@ const Work = () => {
                     </span>
                   </div>
                   
-                  {/* Overlay */}
+                  {/* Play Icon Overlay for videos */}
+                  {project.videoUrl && (
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <div className="w-16 h-16 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
+                        <Play className="w-7 h-7 text-primary fill-primary ml-1" />
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Info Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
                     <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                       <span className="text-sm text-primary uppercase tracking-widest">{project.category}</span>
                       <h3 className="font-display text-2xl font-bold mt-1">{project.title}</h3>
                       <div className="flex items-center justify-between mt-4">
                         <span className="text-primary font-semibold">{project.result}</span>
-                        <div className="w-10 h-10 rounded-full btn-gradient flex items-center justify-center">
-                          <ArrowUpRight className="w-5 h-5" />
-                        </div>
+                        {project.videoUrl && (
+                          <div className="w-10 h-10 rounded-full btn-gradient flex items-center justify-center">
+                            <Play className="w-5 h-5 fill-current ml-0.5" />
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -108,6 +147,51 @@ const Work = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Video Modal */}
+      <Dialog open={isVideoOpen} onOpenChange={handleCloseModal}>
+        <DialogContent className="max-w-5xl p-0 bg-background/95 backdrop-blur-xl border-border/50 overflow-hidden">
+          <DialogTitle className="sr-only">
+            {selectedProject?.title || "Project Video"}
+          </DialogTitle>
+          
+          {/* Close Button */}
+          <button
+            onClick={handleCloseModal}
+            className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full btn-gradient flex items-center justify-center hover:scale-110 transition-transform"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          {selectedProject && (
+            <div className="w-full">
+              {/* Video Container */}
+              <div className="relative w-full aspect-video bg-black">
+                <iframe
+                  src={`${selectedProject.videoUrl}?autoplay=1&rel=0`}
+                  title={selectedProject.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+
+              {/* Project Info */}
+              <div className="p-6 bg-card/50">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="text-sm text-primary uppercase tracking-widest">{selectedProject.category}</span>
+                    <h3 className="font-display text-2xl font-bold mt-1">{selectedProject.title}</h3>
+                  </div>
+                  <div className="px-4 py-2 rounded-full bg-primary/20 border border-primary/30">
+                    <span className="text-primary font-semibold">{selectedProject.result}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </Layout>
   );
 };
