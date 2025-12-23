@@ -2,11 +2,14 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import VideoPlayer from "@/components/VideoPlayer";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
+
+const STORAGE_URL = "https://vlsjcfvioseomcwjawel.supabase.co/storage/v1/object/public/zenovideos";
 
 const categories = ["All", "Motion", "YouTube", "Ads"];
 
@@ -19,9 +22,10 @@ interface Project {
   videoUrl?: string;
 }
 
+// Update videoUrl with actual filenames from zenovideos bucket
 const projects: Project[] = [
-  { id: 1, title: "Tech Brand Launch", category: "Motion", result: "+2M Views", image: "from-primary/30 to-orange-end/20", videoUrl: "https://www.youtube.com/embed/-W_4NsTCZJc" },
-  { id: 2, title: "SaaS Explainer", category: "Motion", result: "50% Conv. Rate", image: "from-purple-500/30 to-primary/20", videoUrl: "https://www.youtube.com/embed/GzAYQ3FDYj0" },
+  { id: 1, title: "Tech Brand Launch", category: "Motion", result: "+2M Views", image: "from-primary/30 to-orange-end/20", videoUrl: `${STORAGE_URL}/tech-brand-launch.mp4` },
+  { id: 2, title: "SaaS Explainer", category: "Motion", result: "50% Conv. Rate", image: "from-purple-500/30 to-primary/20", videoUrl: `${STORAGE_URL}/saas-explainer.mp4` },
   { id: 3, title: "Channel Rebrand", category: "YouTube", result: "+500K Subs", image: "from-blue-500/30 to-primary/20" },
   { id: 4, title: "DTC Campaign", category: "Ads", result: "4.2x ROAS", image: "from-green-500/30 to-primary/20" },
   { id: 5, title: "Creator Content", category: "YouTube", result: "+10M Views", image: "from-pink-500/30 to-primary/20" },
@@ -163,18 +167,13 @@ const Work = () => {
             <X className="w-5 h-5" />
           </button>
 
-          {selectedProject && (
+          {selectedProject && selectedProject.videoUrl && (
             <div className="w-full">
-              {/* Video Container */}
-              <div className="relative w-full aspect-video bg-black">
-                <iframe
-                  src={`${selectedProject.videoUrl}?autoplay=1&rel=0`}
-                  title={selectedProject.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="absolute inset-0 w-full h-full"
-                />
-              </div>
+              {/* Custom Video Player */}
+              <VideoPlayer 
+                src={selectedProject.videoUrl} 
+                title={selectedProject.title}
+              />
 
               {/* Project Info */}
               <div className="p-6 bg-card/50">
