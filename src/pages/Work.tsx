@@ -9,8 +9,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-const STORAGE_URL = "https://vlsjcfvioseomcwjawel.supabase.co/storage/v1/object/public/zenovideos";
-
 const categories = ["All", "Motion", "YouTube", "Ads"];
 
 interface Project {
@@ -22,13 +20,12 @@ interface Project {
   videoUrl?: string;
 }
 
-// Update videoUrl with actual filenames from zenovideos bucket
 const projects: Project[] = [
-  { id: 1, title: "Tech Brand Launch", category: "Motion", result: "+2M Views", image: "from-primary/30 to-orange-end/20", videoUrl: `${STORAGE_URL}/tech-brand-launch.mp4` },
-  { id: 2, title: "SaaS Explainer", category: "Motion", result: "50% Conv. Rate", image: "from-purple-500/30 to-primary/20", videoUrl: `${STORAGE_URL}/saas-explainer.mp4` },
-  { id: 3, title: "Channel Rebrand", category: "YouTube", result: "+500K Subs", image: "from-blue-500/30 to-primary/20" },
-  { id: 4, title: "DTC Campaign", category: "Ads", result: "4.2x ROAS", image: "from-green-500/30 to-primary/20" },
-  { id: 5, title: "Creator Content", category: "YouTube", result: "+10M Views", image: "from-pink-500/30 to-primary/20" },
+  { id: 1, title: "David", category: "Motion", result: "+2M Views", image: "from-primary/30 to-orange-end/20", videoUrl: "https://rrwpihpeixhuycrirqxs.supabase.co/storage/v1/object/public/Zeno%20Videos/David.mp4" },
+  { id: 2, title: "Jaylen", category: "Motion", result: "50% Conv. Rate", image: "from-purple-500/30 to-primary/20", videoUrl: "https://rrwpihpeixhuycrirqxs.supabase.co/storage/v1/object/public/Zeno%20Videos/Jaylen.mp4" },
+  { id: 3, title: "Shaid", category: "YouTube", result: "+500K Subs", image: "from-blue-500/30 to-primary/20", videoUrl: "https://rrwpihpeixhuycrirqxs.supabase.co/storage/v1/object/public/Zeno%20Videos/Shaid.mp4" },
+  { id: 4, title: "Stranger Things", category: "Ads", result: "4.2x ROAS", image: "from-green-500/30 to-primary/20", videoUrl: "https://rrwpihpeixhuycrirqxs.supabase.co/storage/v1/object/public/Zeno%20Videos/Stranger%20Things.mp4" },
+  { id: 5, title: "Tellus", category: "YouTube", result: "+10M Views", image: "from-pink-500/30 to-primary/20", videoUrl: "https://rrwpihpeixhuycrirqxs.supabase.co/storage/v1/object/public/Zeno%20Videos/Tellus.mp4" },
   { id: 6, title: "Product Launch", category: "Ads", result: "2.8x ROAS", image: "from-yellow-500/30 to-primary/20" },
   { id: 7, title: "Brand Animation", category: "Motion", result: "Award Winner", image: "from-cyan-500/30 to-primary/20" },
   { id: 8, title: "Shorts Strategy", category: "YouTube", result: "+5M Views", image: "from-red-500/30 to-primary/20" },
