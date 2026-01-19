@@ -87,7 +87,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Email us at</p>
-                    <p className="font-semibold">rajkiran.321756@gmail.com</p>
+                    <a href="mailto:zeno4creatives@gmail.com" className="font-semibold hover:text-primary transition-colors">zeno4creatives@gmail.com</a>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
