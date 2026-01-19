@@ -36,10 +36,10 @@ const About = () => {
             >
               <p className="text-sm text-primary uppercase tracking-widest mb-4">✦ About Us</p>
               <h1 className="font-display text-5xl md:text-7xl font-bold mb-6">
-                Creatives who think like <span className="text-gradient">Marketers.</span>
+                Creatives obsessed with <span className="text-gradient">Visuals.</span>
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed">
-                We are a full-service digital agency passionate about helping businesses grow online. From motion graphics and video production to YouTube strategy, our team blends creativity with data-driven strategies to deliver results that matter.
+                We believe in the power of stunning visuals and authentic engagement. From cinematic motion graphics to scroll-stopping video content, our team crafts visual experiences that captivate audiences and make your brand unforgettable.
               </p>
             </motion.div>
 
