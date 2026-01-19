@@ -5,15 +5,15 @@ import Layout from "@/components/layout/Layout";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 
 const stats = [
-  { number: "50+", label: "Clients", icon: Users },
-  { number: "10M+", label: "Views Generated", icon: Eye },
+  { number: "5+", label: "Big Clients", icon: Users },
+  { number: "15M+", label: "Views Generated", icon: Eye },
   { number: "100%", label: "Remote Team", icon: Globe },
 ];
 
 const team = [
-  { name: "Alex Rivera", role: "Creative Director", avatar: "A" },
-  { name: "Sarah Chen", role: "Head of Strategy", avatar: "S" },
-  { name: "Marcus Johnson", role: "Lead Editor", avatar: "M" },
+  { name: "Raj Kiran Chaudhary", role: "Creative Director", avatar: "R" },
+  { name: "Sujan Shrestha", role: "Editor", avatar: "S" },
+  { name: "Saksham Lamshal", role: "Scriptwriter", avatar: "S" },
 ];
 
 const values = [
@@ -50,7 +50,7 @@ const About = () => {
               className="relative"
             >
               <div className="card-glass aspect-square flex items-center justify-center">
-                <span className="font-display text-[12rem] font-bold text-gradient opacity-50">15</span>
+                <span className="font-display text-[12rem] font-bold text-gradient opacity-50">3</span>
               </div>
               <p className="text-center mt-4 text-muted-foreground">years of work experience</p>
             </motion.div>
