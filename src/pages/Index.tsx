@@ -5,6 +5,9 @@ import Layout from "@/components/layout/Layout";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import heroGlow from "@/assets/hero-glow.png";
 import abstractChrome from "@/assets/abstract-chrome.png";
+import tellUsMore from "@/assets/tell-us-more.png";
+import ryanPictures from "@/assets/ryan-pictures.png";
+import davidOmari from "@/assets/david-omari.jpg";
 
 const services = [
   {
@@ -24,7 +27,11 @@ const services = [
   },
 ];
 
-const logos = ["Brand One", "Brand Two", "Brand Three", "Brand Four", "Brand Five"];
+const youtubers = [
+  { name: "Tell Us More", image: tellUsMore },
+  { name: "Ryan Pictures", image: ryanPictures },
+  { name: "David Omari", image: davidOmari },
+];
 
 const Index = () => {
   return (
@@ -127,19 +134,28 @@ const Index = () => {
       <section className="border-y border-border bg-card/30">
         <div className="container-wide mx-auto py-12 px-6 md:px-12 lg:px-24">
           <p className="text-sm text-muted-foreground text-center mb-8 uppercase tracking-widest">
-            Trusted by forward-thinking brands
+            Trusted by top creators
           </p>
           <div className="flex flex-wrap justify-center items-center gap-12 md:gap-16">
-            {logos.map((logo, index) => (
+            {youtubers.map((youtuber, index) => (
               <motion.div
-                key={logo}
+                key={youtuber.name}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="text-xl font-display font-bold text-muted-foreground/40 hover:text-muted-foreground transition-colors"
+                className="flex flex-col items-center gap-3"
               >
-                {logo}
+                <div className="w-24 h-24 rounded-full border-4 border-primary overflow-hidden">
+                  <img 
+                    src={youtuber.image} 
+                    alt={youtuber.name} 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <span className="font-display font-semibold text-foreground">
+                  {youtuber.name}
+                </span>
               </motion.div>
             ))}
           </div>
