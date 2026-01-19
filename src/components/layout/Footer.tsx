@@ -47,7 +47,7 @@ const Footer = () => {
             <h4 className="font-display font-semibold mb-4">Contact</h4>
             <ul className="space-y-3 text-muted-foreground">
               <li><a href="mailto:zeno4creatives@gmail.com" className="hover:text-foreground transition-colors">zeno4creatives@gmail.com</a></li>
-              <li>Baneshwor, Kathmandu</li>
+              <li><a href="https://www.google.com/maps/search/Baneshwor,+Kathmandu" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Baneshwor, Kathmandu</a></li>
             </ul>
           </div>
         </div>
