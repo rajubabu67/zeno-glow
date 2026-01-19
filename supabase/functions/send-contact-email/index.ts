@@ -33,8 +33,9 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send email to the business inbox
     const emailResponse = await resend.emails.send({
-      from: "The Zeno Creatives <onboarding@resend.dev>",
+      from: `${name} via The Zeno Creatives <onboarding@resend.dev>`,
       to: [RECIPIENT_EMAIL],
+      reply_to: email,
       subject: `New Project Inquiry from ${name}`,
       html: `
         <!DOCTYPE html>
