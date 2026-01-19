@@ -3,8 +3,8 @@ import { Resend } from "https://esm.sh/resend@2.0.0";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
-// Recipient email - change this when you get a business email
-const RECIPIENT_EMAIL = "rajkiran.321756@gmail.com";
+// Recipient email
+const RECIPIENT_EMAIL = "zeno4creatives@gmail.com";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
