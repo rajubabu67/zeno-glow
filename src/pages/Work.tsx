@@ -21,6 +21,8 @@ const projects: Project[] = [
   { id: 3, title: "Project 3", youtubeId: "Xn7TTtsoefg", image: "from-blue-500/30 to-primary/20" },
   { id: 4, title: "Project 4", youtubeId: "UQAPZltCcnc", image: "from-green-500/30 to-primary/20" },
   { id: 5, title: "Project 5", youtubeId: "rI5yvzZPE_c", image: "from-pink-500/30 to-primary/20" },
+  { id: 6, title: "Project 6", youtubeId: "V_WvFBIsij8", image: "from-cyan-500/30 to-primary/20" },
+  { id: 7, title: "Project 7", youtubeId: "tQ2jYZ5RuWs", image: "from-red-500/30 to-primary/20" },
 ];
 
 const Work = () => {
