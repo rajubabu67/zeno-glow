@@ -1,8 +1,14 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Play, Sparkles } from "lucide-react";
+import { ArrowRight, Play, Sparkles, X } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import AnimatedSection from "@/components/ui/AnimatedSection";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import heroGlow from "@/assets/hero-glow.png";
 import abstractChrome from "@/assets/abstract-chrome.png";
 import tellUsMore from "@/assets/tell-us-more.png";
@@ -34,6 +40,8 @@ const youtubers = [
 ];
 
 const Index = () => {
+  const [isShowreelOpen, setIsShowreelOpen] = useState(false);
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -96,7 +104,10 @@ const Index = () => {
                 Get a Free Consultation
                 <ArrowRight className="w-5 h-5" />
               </Link>
-              <button className="px-8 py-4 rounded-full border border-border bg-secondary/50 font-semibold inline-flex items-center gap-2 hover:bg-secondary transition-colors">
+              <button 
+                onClick={() => setIsShowreelOpen(true)}
+                className="px-8 py-4 rounded-full border border-border bg-secondary/50 font-semibold inline-flex items-center gap-2 hover:bg-secondary transition-colors"
+              >
                 <Play className="w-5 h-5" />
                 Watch Showreel
               </button>
@@ -218,6 +229,34 @@ const Index = () => {
           </AnimatedSection>
         </div>
       </section>
+
+      {/* Showreel Video Modal */}
+      <Dialog open={isShowreelOpen} onOpenChange={setIsShowreelOpen}>
+        <DialogContent className="max-w-5xl p-0 bg-background/95 backdrop-blur-xl border-border/50 overflow-hidden">
+          <DialogTitle className="sr-only">Showreel</DialogTitle>
+          
+          {/* Close Button */}
+          <button
+            onClick={() => setIsShowreelOpen(false)}
+            className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full btn-gradient flex items-center justify-center hover:scale-110 transition-transform"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          <div className="w-full">
+            {/* YouTube Embed */}
+            <div className="aspect-video">
+              <iframe
+                src={isShowreelOpen ? "https://www.youtube.com/embed/veCboBNE53k?autoplay=1&rel=0&modestbranding=1" : ""}
+                title="Showreel"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </Layout>
   );
 };
