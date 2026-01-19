@@ -50,7 +50,7 @@ const About = () => {
               className="relative"
             >
               <div className="card-glass aspect-square flex items-center justify-center">
-                <span className="font-display text-[12rem] font-bold text-gradient opacity-50">3</span>
+                <span className="font-display text-[12rem] font-bold text-gradient opacity-50">3+</span>
               </div>
               <p className="text-center mt-4 text-muted-foreground">years of work experience</p>
             </motion.div>
