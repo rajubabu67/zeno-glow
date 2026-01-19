@@ -117,17 +117,6 @@ const Index = () => {
             />
           </motion.div>
         </div>
-
-        {/* Location Badge */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="absolute bottom-12 right-12 text-right hidden md:block"
-        >
-          <p className="text-sm text-muted-foreground">Current Location</p>
-          <p className="font-display font-semibold">New York, USA</p>
-        </motion.div>
       </section>
 
       {/* Trust Bar */}
